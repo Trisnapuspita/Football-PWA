@@ -267,7 +267,12 @@ function getFavoriteTeams() {
         </div>`;
     });
     // Sisipkan komponen card ke dalam elemen dengan id #content
+    if(teams.length) {  
     document.getElementById("teams").innerHTML = teamHTML;
+    }else {
+      document.getElementById("teams").innerHTML =
+      '<h5 class="center-content center">No added favorite teams</h5>';
+    }
   });
 }
 

@@ -34,12 +34,47 @@ workbox.precaching.precacheAndRoute([
     { url: '/manifest.json', revision: '1' },
     { url: '/team.html', revision: '2' },
     { url: '/js/team-script.js', revision: '1' }
-]);
+    ], {
+    ignoreUrlParametersMatching: [/.*/]
+  });
+
+  workbox.routing.registerRoute(
+    new RegExp("/css/"),
+    workbox.strategies.cacheFirst({
+      cacheName: "styles"
+    })
+  );
+  
+  workbox.routing.registerRoute(
+    new RegExp("/images/"),
+    workbox.strategies.cacheFirst({
+      cacheName: "images"
+    })
+  );
+  
+  workbox.routing.registerRoute(
+    new RegExp("/#home"),
+    workbox.strategies.staleWhileRevalidate({
+      cacheName: "pages"
+    })
+  );
+  workbox.routing.registerRoute(
+    new RegExp("/#favorite"),
+    workbox.strategies.staleWhileRevalidate({
+      cacheName: "pages"
+    })
+  );
+  workbox.routing.registerRoute(
+    new RegExp("/#contact"),
+    workbox.strategies.staleWhileRevalidate({
+      cacheName: "pages"
+    })
+  );
 
 workbox.routing.registerRoute(
-  new RegExp('/pages/'),
+  new RegExp('https://api.football-data.org/v2/'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'pages'
+    cacheName: 'api'
   })
 );
 
